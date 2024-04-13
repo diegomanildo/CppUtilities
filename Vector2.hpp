@@ -141,6 +141,11 @@ public:
     constexpr T length_squared() const noexcept {
         return m_x * m_x + m_y * m_y;
     }
+
+    Vector2 lerp(const Vector2& to, T weight) const noexcept {
+        return (*this) * (T(1) - weight) + to * weight;
+    }
+
 private:
     T m_x;
     T m_y;
