@@ -112,6 +112,10 @@ public:
         return Vector2(std::floor(m_x), std::floor(m_y));
     }
 
+    constexpr static Vector2 from_angle(float angle) noexcept {
+        return Vector2(std::cos(angle), std::sin(angle));
+    }
+
     constexpr Vector2 normalized() const noexcept {
         const auto length = std::sqrt(m_x * m_x + m_y * m_y);
         return (length != 0) ? Vector2(m_x / length, m_y / length) : *this;
