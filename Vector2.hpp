@@ -133,6 +133,14 @@ public:
         const auto length = std::sqrt(m_x * m_x + m_y * m_y);
         return (length != 0) ? Vector2(m_x / length, m_y / length) : *this;
     }
+
+    constexpr T length() const noexcept {
+        return std::sqrt(m_x * m_x + m_y * m_y);
+    }
+
+    constexpr T length_squared() const noexcept {
+        return m_x * m_x + m_y * m_y;
+    }
 private:
     T m_x;
     T m_y;
