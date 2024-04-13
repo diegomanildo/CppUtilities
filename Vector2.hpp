@@ -3,10 +3,7 @@
 #include <cmath>
 #include <algorithm>
 
-template<typename T>
-concept IntType = std::is_convertible_v<T, int>;
-
-template <IntType T>
+template <typename T>
 class Vector2 {
 public:
     constexpr Vector2(T x, T y) noexcept : m_x(x), m_y(y) {}
