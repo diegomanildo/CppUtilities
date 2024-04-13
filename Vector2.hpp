@@ -142,10 +142,45 @@ public:
         return m_x * m_x + m_y * m_y;
     }
 
-    Vector2 lerp(const Vector2& to, T weight) const noexcept {
+    constexpr Vector2 lerp(const Vector2& to, T weight) const noexcept {
         return (*this) * (T(1) - weight) + to * weight;
     }
 
+    constexpr Vector2 operator+(const Vector2& other) noexcept {
+        return Vector2(m_x + other.m_x, m_y + other.m_y);
+    }
+
+    constexpr Vector2 operator-(const Vector2& other) noexcept {
+        return Vector2(m_x - other.m_x, m_y - other.m_y);
+    }
+
+    constexpr Vector2 operator*(T scalar) const noexcept {
+        return Vector2(m_x * scalar, m_y * scalar);
+    }
+
+    constexpr Vector2 operator/(T scalar) const noexcept {
+        return scalar != 0 ? Vector2(m_x / scalar, m_y / scalar) : Vector2(T(), T());
+    }
+
+    constexpr Vector2& operator+=(const Vector2& other) noexcept {
+        *this = *this + other;
+        return *this;
+    }
+
+    constexpr Vector2& operator-=(const Vector2& other) noexcept {
+        *this = *this - other;
+        return *this;
+    }
+
+    constexpr Vector2& operator*=(T scalar) noexcept {
+        *this = *this * scalar;
+        return *this;
+    }
+
+    constexpr Vector2& operator/=(T scalar) noexcept {
+        *this = *this * scalar;
+        return *this;
+    }
 private:
     T m_x;
     T m_y;
