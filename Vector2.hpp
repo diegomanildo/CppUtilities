@@ -124,6 +124,11 @@ public:
         return std::isfinite(m_x) && std::isfinite(m_y);
     }
 
+    constexpr bool is_normalized(float tolerance = 1.5f) const noexcept {
+        const auto lengthSquared = m_x * m_x + m_y * m_y;
+        return std::abs(lengthSquared - 1.0f) < tolerance;
+    }
+
     constexpr Vector2 normalized() const noexcept {
         const auto length = std::sqrt(m_x * m_x + m_y * m_y);
         return (length != 0) ? Vector2(m_x / length, m_y / length) : *this;
