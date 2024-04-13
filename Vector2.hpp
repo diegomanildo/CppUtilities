@@ -28,6 +28,10 @@ public:
     static constexpr Vector2<int> UP = Vector2(0, -1);
     static constexpr Vector2<int> DOWN = Vector2(0, 1);
 
+    friend std::ostream& operator<<(std::ostream& os, const Vector2& v) noexcept {
+        return os << "(" << v.m_x << ", " << v.m_y << ")";
+    }
+
     constexpr Vector2 abs() const noexcept {
         return Vector2(std::abs(m_x), std::abs(m_y));
     }
@@ -92,8 +96,8 @@ public:
         return (length != 0) ? Vector2(m_x / length, m_y / length) : *this;
     }
 private:
-    constexpr T m_x;
-    constexpr T m_y;
+    T m_x;
+    T m_y;
 };
 
 using Vector2F = Vector2<float>;
