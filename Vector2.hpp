@@ -92,6 +92,12 @@ public:
         return displacement.normalized();
     }
 
+    constexpr T distance_squared_to(const Vector2& to) const noexcept {
+        const auto dx = to.m_x - m_x;
+        const auto dy = to.m_y - m_y;
+        return dx * dx + dy * dy;
+    }
+
     constexpr Vector2 normalized() const noexcept {
         const auto length = std::sqrt(m_x * m_x + m_y * m_y);
         return (length != 0) ? Vector2(m_x / length, m_y / length) : *this;
