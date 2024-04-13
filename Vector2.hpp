@@ -116,10 +116,13 @@ public:
         return Vector2(std::cos(angle), std::sin(angle));
     }
 
-    bool is_equal_approx(const Vector2& to, float tolerance = 1.5f) const noexcept {
+    constexpr bool is_equal_approx(const Vector2& to, float tolerance = 1.5f) const noexcept {
         return std::abs(m_x - to.m_x) < tolerance && std::abs(m_y - to.m_y) < tolerance;
     }
 
+    bool is_finite() const noexcept {
+        return std::isfinite(m_x) && std::isfinite(m_y);
+    }
 
     constexpr Vector2 normalized() const noexcept {
         const auto length = std::sqrt(m_x * m_x + m_y * m_y);
