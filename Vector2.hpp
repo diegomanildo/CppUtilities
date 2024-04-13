@@ -1,31 +1,32 @@
 #pragma once
 
 #include <cmath>
+#include <algorithm>
 
 template <typename T>
 class Vector2 {
 public:
-    Vector2(T x, T y) noexcept
+    constexpr Vector2(T x, T y) noexcept
         : m_x(x), m_y(y) {}
 
-    Vector2() noexcept
-        : Vector2(T(), T())
+    constexpr Vector2() noexcept
+        : Vector2(T(), T()) {}
     
-    Vector2(const Vector2& v) noexcept
+    constexpr Vector2(const Vector2& v) noexcept
         : Vector2(v.m_x, v.m_y) {}
     
-    Vector2(Vector2&& v) noexcept : Vector2(std::move(v.m_x), std::move(v.m_y)) {
+    constexpr Vector2(Vector2&& v) noexcept : Vector2(std::move(v.m_x), std::move(v.m_y)) {
         m_x = T();
         m_y = T();
     }
 
-    static const Vector2<int> ZERO = Vector2(0, 0)
-    static const Vector2<int> ONE = Vector2(0, 0)
+    static constexpr Vector2<int> ZERO = Vector2(0, 0);
+    static constexpr Vector2<int> ONE = Vector2(0, 0);
 
-    static const Vector2<int> LEFT = Vector2(-1, 0)
-    static const Vector2<int> RIGHT = Vector2(1, 0)
-    static const Vector2<int> UP = Vector2(0, -1)
-    static const Vector2<int> DOWN = Vector2(0, 1)
+    static constexpr Vector2<int> LEFT = Vector2(-1, 0);
+    static constexpr Vector2<int> RIGHT = Vector2(1, 0);
+    static constexpr Vector2<int> UP = Vector2(0, -1);
+    static constexpr Vector2<int> DOWN = Vector2(0, 1);
 
     Vector2 abs() const noexcept {
         return Vector2(std::abs(m_x), std::abs(m_y));
@@ -76,8 +77,8 @@ public:
         const auto t3 = t2 * weight;
 
         return Vector2(
-            (2 * t3 - 3 * t2 + 1) * m_x + (t3 - 2 * t2 + weight) * b.m_x + (-2 * t3 + 3 * t2) * pre_a.m_x + (t3 - t2) * post_b.m_x,
-            (2 * t3 - 3 * t2 + 1) * m_y + (t3 - 2 * t2 + weight) * b.m_y + (-2 * t3 + 3 * t2) * pre_a.m_y + (t3 - t2) * post_b.m_y,
+            ((2 * t3 - 3 * t2 + 1) * m_x + (t3 - 2 * t2 + weight) * b.m_x + (-2 * t3 + 3 * t2) * pre_a.m_x + (t3 - t2) * post_b.m_x),
+            ((2 * t3 - 3 * t2 + 1) * m_y + (t3 - 2 * t2 + weight) * b.m_y + (-2 * t3 + 3 * t2) * pre_a.m_y + (t3 - t2) * post_b.m_y)
         );
     }
 
