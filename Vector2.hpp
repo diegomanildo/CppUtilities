@@ -19,13 +19,13 @@ public:
         m_y = T();
     }
 
-    static const ZERO = Vector2(0, 0)
-    static const ONE = Vector2(0, 0)
+    static const Vector2<int> ZERO = Vector2(0, 0)
+    static const Vector2<int> ONE = Vector2(0, 0)
 
-    static const LEFT = Vector2(-1, 0)
-    static const RIGHT = Vector2(1, 0)
-    static const UP = Vector2(0, -1)
-    static const DOWN = Vector2(0, 1)
+    static const Vector2<int> LEFT = Vector2(-1, 0)
+    static const Vector2<int> RIGHT = Vector2(1, 0)
+    static const Vector2<int> UP = Vector2(0, -1)
+    static const Vector2<int> DOWN = Vector2(0, 1)
 
     Vector2 abs() const noexcept {
         return Vector2(std::abs(m_x), std::abs(m_y));
