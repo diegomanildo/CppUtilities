@@ -6,27 +6,28 @@
 template <typename T>
 class Vector2 {
 public:
-    constexpr Vector2(T x, T y) noexcept
-        : m_x(x), m_y(y) {}
+    constexpr Vector2(T x, T y) noexcept : m_x(x), m_y(y) {}
+    constexpr Vector2() noexcept : Vector2(T(), T()) {}
+    constexpr Vector2(const Vector2& v) = default;
+    constexpr Vector2(Vector2&& v) noexcept = default;
 
-    constexpr Vector2() noexcept
-        : Vector2(T(), T()) {}
-    
-    constexpr Vector2(const Vector2& v) noexcept
-        : Vector2(v.m_x, v.m_y) {}
-    
-    constexpr Vector2(Vector2&& v) noexcept : Vector2(std::move(v.m_x), std::move(v.m_y)) {
-        m_x = T();
-        m_y = T();
+    constexpr Vector2& operator=(const std::pair<T, T>& values) noexcept {
+        m_x = values.first;
+        m_y = values.second;
+        return *this;
     }
 
-    static constexpr Vector2<int> ZERO = Vector2(0, 0);
-    static constexpr Vector2<int> ONE = Vector2(0, 0);
+    constexpr Vector2& operator=(const Vector2& v) noexcept = default;
 
-    static constexpr Vector2<int> LEFT = Vector2(-1, 0);
-    static constexpr Vector2<int> RIGHT = Vector2(1, 0);
-    static constexpr Vector2<int> UP = Vector2(0, -1);
-    static constexpr Vector2<int> DOWN = Vector2(0, 1);
+    constexpr Vector2& operator=(Vector2&& v) noexcept = default;
+
+    static constexpr Vector2<int> ZERO = Vector2{0, 0};
+    static constexpr Vector2<int> ONE = Vector2{0, 0};
+
+    static constexpr Vector2<int> LEFT = Vector2{-1, 0};
+    static constexpr Vector2<int> RIGHT = Vector2{1, 0};
+    static constexpr Vector2<int> UP = Vector2{0, -1};
+    static constexpr Vector2<int> DOWN = Vector2{0, 1};
 
     friend std::ostream& operator<<(std::ostream& os, const Vector2& v) noexcept {
         return os << "(" << v.m_x << ", " << v.m_y << ")";
