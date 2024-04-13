@@ -99,13 +99,17 @@ public:
     }
 
     constexpr T distance_to(const Vector2& to) const noexcept {
-        float dx = to.m_x - m_x;
-        float dy = to.m_y - m_y;
+        const auto dx = to.m_x - m_x;
+        const auto dy = to.m_y - m_y;
         return std::sqrt(dx * dx + dy * dy);
     }
 
     constexpr T dot(const Vector2& with) const noexcept {
         return m_x * with.m_x + m_y * with.m_y;
+    }
+
+    constexpr Vector2 floor() const noexcept {
+        return Vector2(std::floor(m_x), std::floor(m_y));
     }
 
     constexpr Vector2 normalized() const noexcept {
