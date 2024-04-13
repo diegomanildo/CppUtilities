@@ -104,6 +104,10 @@ public:
         return std::sqrt(dx * dx + dy * dy);
     }
 
+    constexpr T dot(const Vector2& with) const noexcept {
+        return m_x * with.m_x + m_y * with.m_y;
+    }
+
     constexpr Vector2 normalized() const noexcept {
         const auto length = std::sqrt(m_x * m_x + m_y * m_y);
         return (length != 0) ? Vector2(m_x / length, m_y / length) : *this;
