@@ -95,3 +95,11 @@ private:
     constexpr T m_x;
     constexpr T m_y;
 };
+
+using Vector2F = Vector2<float>;
+using Vector2D = Vector2<double>;
+
+using Vector2I = Vector2<int>;
+using Vector2L = Vector2<long long>;
+using Vector2UI = Vector2<unsigned int>;
+using Vector2UL = Vector2<unsigned long long>;
