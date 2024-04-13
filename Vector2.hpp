@@ -98,6 +98,12 @@ public:
         return dx * dx + dy * dy;
     }
 
+    constexpr T distance_to(const Vector2& to) const noexcept {
+        float dx = to.m_x - m_x;
+        float dy = to.m_y - m_y;
+        return std::sqrt(dx * dx + dy * dy);
+    }
+
     constexpr Vector2 normalized() const noexcept {
         const auto length = std::sqrt(m_x * m_x + m_y * m_y);
         return (length != 0) ? Vector2(m_x / length, m_y / length) : *this;
