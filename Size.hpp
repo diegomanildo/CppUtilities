@@ -10,7 +10,7 @@ public:
     constexpr Size(const Size&) noexcept = default;
     constexpr Size(Size&&) noexcept = default;
 
-    constexpr Size& operator=(const std::pair<int, int> pair) noexcept {
+    constexpr Size& operator=(const std::pair<int, int>& pair) noexcept {
         width = pair.first;
         height = pair.second;
     }
