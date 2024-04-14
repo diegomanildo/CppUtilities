@@ -6,14 +6,16 @@
 template <typename T>
 class Vector2 {
 public:
-    constexpr Vector2(T x, T y) noexcept : m_x(x), m_y(y) {}
+    T x, y;
+
+    constexpr Vector2(T _x, T _y) noexcept : x(_x), y(_y) {}
     constexpr Vector2() noexcept : Vector2(T(), T()) {}
     constexpr Vector2(const Vector2& v) = default;
     constexpr Vector2(Vector2&& v) noexcept = default;
 
     constexpr Vector2& operator=(const std::pair<T, T>& values) noexcept {
-        m_x = values.first;
-        m_y = values.second;
+        x = values.first;
+        y = values.second;
         return *this;
     }
 
@@ -30,19 +32,19 @@ public:
     static constexpr Vector2<int> DOWN = Vector2{0, 1};
 
     friend std::ostream& operator<<(std::ostream& os, const Vector2& v) noexcept {
-        return os << "(" << v.m_x << ", " << v.m_y << ")";
+        return os << "(" << v.x << ", " << v.y << ")";
     }
 
     constexpr Vector2 abs() const noexcept {
-        return Vector2(std::abs(m_x), std::abs(m_y));
+        return Vector2(std::abs(x), std::abs(y));
     }
 
     constexpr T angle() const noexcept {
-        return std::atan2(m_y, m_x);
+        return std::atan2(y, x);
     }
 
     constexpr T angle_to(const Vector2& other) const noexcept {
-        return std::atan2(other.m_y - m_y, other.m_x - m_x);
+        return std::atan2(other.y - y, other.x - x);
     }
 
     constexpr T angle_to_point(T x, T y) const noexcept {
@@ -50,31 +52,31 @@ public:
     }
 
     constexpr T aspect() const noexcept {
-        return m_x / m_y;
+        return x / y;
     }
 
     constexpr Vector2 bounce(const Vector2& normal) const noexcept {
-        const auto dotProduct = m_x * normal.m_x + m_y * normal.m_y;
+        const auto dotProduct = x * normal.x + y * normal.y;
         
         return Vector2(
-            m_x - 2 * dotProduct * normal.m_x,
-            m_y - 2 * dotProduct * normal.m_y
+            x - 2 * dotProduct * normal.x,
+            y - 2 * dotProduct * normal.y
         );
     }
 
     constexpr Vector2 ceil() const noexcept {
-        return Vector2(std::ceil(m_x), std::ceil(m_y));
+        return Vector2(std::ceil(x), std::ceil(y));
     }
 
     constexpr Vector2 clamp(const Vector2& min, const Vector2& max) const noexcept {
         return Vector2(
-            std::clamp(m_x, min.m_x, max.m_x),
-            std::clamp(m_y, min.m_y, max.m_y)
+            std::clamp(x, min.x, max.x),
+            std::clamp(y, min.y, max.y)
         );
     }
 
     constexpr T cross(const Vector2& with) const noexcept {
-        return m_x * with.m_y - m_y * with.m_x;
+        return x * with.y - y * with.x;
     }
 
     constexpr Vector2 cubic_interpolate(const Vector2& b, const Vector2& pre_a, const Vector2& post_b, T weight) const noexcept {
@@ -82,8 +84,8 @@ public:
         const auto t3 = t2 * weight;
 
         return Vector2(
-            ((2 * t3 - 3 * t2 + 1) * m_x + (t3 - 2 * t2 + weight) * b.m_x + (-2 * t3 + 3 * t2) * pre_a.m_x + (t3 - t2) * post_b.m_x),
-            ((2 * t3 - 3 * t2 + 1) * m_y + (t3 - 2 * t2 + weight) * b.m_y + (-2 * t3 + 3 * t2) * pre_a.m_y + (t3 - t2) * post_b.m_y)
+            ((2 * t3 - 3 * t2 + 1) * x + (t3 - 2 * t2 + weight) * b.x + (-2 * t3 + 3 * t2) * pre_a.x + (t3 - t2) * post_b.x),
+            ((2 * t3 - 3 * t2 + 1) * y + (t3 - 2 * t2 + weight) * b.y + (-2 * t3 + 3 * t2) * pre_a.y + (t3 - t2) * post_b.y)
         );
     }
 
@@ -93,23 +95,23 @@ public:
     }
 
     constexpr T distance_squared_to(const Vector2& to) const noexcept {
-        const auto dx = to.m_x - m_x;
-        const auto dy = to.m_y - m_y;
+        const auto dx = to.x - x;
+        const auto dy = to.y - y;
         return dx * dx + dy * dy;
     }
 
     constexpr T distance_to(const Vector2& to) const noexcept {
-        const auto dx = to.m_x - m_x;
-        const auto dy = to.m_y - m_y;
+        const auto dx = to.x - x;
+        const auto dy = to.y - y;
         return std::sqrt(dx * dx + dy * dy);
     }
 
     constexpr T dot(const Vector2& with) const noexcept {
-        return m_x * with.m_x + m_y * with.m_y;
+        return x * with.x + y * with.y;
     }
 
     constexpr Vector2 floor() const noexcept {
-        return Vector2(std::floor(m_x), std::floor(m_y));
+        return Vector2(std::floor(x), std::floor(y));
     }
 
     constexpr static Vector2 from_angle(float angle) noexcept {
@@ -117,29 +119,29 @@ public:
     }
 
     constexpr bool is_equal_approx(const Vector2& to, float tolerance = 1.5f) const noexcept {
-        return std::abs(m_x - to.m_x) < tolerance && std::abs(m_y - to.m_y) < tolerance;
+        return std::abs(x - to.x) < tolerance && std::abs(y - to.y) < tolerance;
     }
 
     bool is_finite() const noexcept {
-        return std::isfinite(m_x) && std::isfinite(m_y);
+        return std::isfinite(x) && std::isfinite(y);
     }
 
     constexpr bool is_normalized(float tolerance = 1.5f) const noexcept {
-        const auto lengthSquared = m_x * m_x + m_y * m_y;
+        const auto lengthSquared = x * x + y * y;
         return std::abs(lengthSquared - 1.0f) < tolerance;
     }
 
     constexpr Vector2 normalized() const noexcept {
-        const auto length = std::sqrt(m_x * m_x + m_y * m_y);
-        return (length != 0) ? Vector2(m_x / length, m_y / length) : *this;
+        const auto length = std::sqrt(x * x + y * y);
+        return (length != 0) ? Vector2(x / length, y / length) : *this;
     }
 
     constexpr T length() const noexcept {
-        return std::sqrt(m_x * m_x + m_y * m_y);
+        return std::sqrt(x * x + y * y);
     }
 
     constexpr T length_squared() const noexcept {
-        return m_x * m_x + m_y * m_y;
+        return x * x + y * y;
     }
 
     constexpr Vector2 lerp(const Vector2& to, T weight) const noexcept {
@@ -147,19 +149,19 @@ public:
     }
 
     constexpr Vector2 operator+(const Vector2& other) noexcept {
-        return Vector2(m_x + other.m_x, m_y + other.m_y);
+        return Vector2(x + other.x, y + other.y);
     }
 
     constexpr Vector2 operator-(const Vector2& other) noexcept {
-        return Vector2(m_x - other.m_x, m_y - other.m_y);
+        return Vector2(x - other.x, y - other.y);
     }
 
     constexpr Vector2 operator*(T scalar) const noexcept {
-        return Vector2(m_x * scalar, m_y * scalar);
+        return Vector2(x * scalar, y * scalar);
     }
 
     constexpr Vector2 operator/(T scalar) const noexcept {
-        return scalar != 0 ? Vector2(m_x / scalar, m_y / scalar) : Vector2(T(), T());
+        return scalar != 0 ? Vector2(x / scalar, y / scalar) : Vector2(T(), T());
     }
 
     constexpr Vector2& operator+=(const Vector2& other) noexcept {
@@ -181,9 +183,6 @@ public:
         *this = *this * scalar;
         return *this;
     }
-private:
-    T m_x;
-    T m_y;
 };
 
 using Vector2F = Vector2<float>;
